@@ -145,3 +145,16 @@ mutation {
   }
 }
 ```
+
+
+# Client: Vue Apollo
+Nel server mi serve questo:
+
+    php artisan vendor:publish --tag=lighthouse-config
+
+Nel file `config/cors.php` aggiungo graphql all'array paths
+
+Nel client installo questi
+
+    vue new vue-apollo-client => sceglierò Vue 2 stavolta (però vorrei provare Vite)
+    vue add apollo
