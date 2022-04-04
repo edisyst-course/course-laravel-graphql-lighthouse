@@ -19,7 +19,7 @@ type Query {
     users(
       "Filters by name. Accepts SQL LIKE wildcards `%` and `_`."
       name: String @where(operator: "like")
-    ): [User!]! @paginate
+    ): [User!]! @all
 
     tasks: [Task!]! @all
     task (id: ID @eq): Task @find
@@ -50,7 +50,7 @@ type User {
 
 type Task {
     id: ID!
-    name: String
+    title: String
     user: User! @belongsTo
     created_at: DateTime!
     updated_at: DateTime!
@@ -59,11 +59,11 @@ type Task {
 
 type Mutation {
     createTask(input: TaskInput! @spread): Task @create
-    updateTask(id: ID!, name: String!): Task @update
+    updateTask(id: ID!, title: String!): Task @update
     deleteTask(id: ID!): Task @delete
 }
 
 input TaskInput {
     user_id: Int!
-    name: String! @rules(apply: ["string", "min:5"])
+    title: String! @rules(apply: ["string", "min:5"])
 }
