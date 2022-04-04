@@ -154,7 +154,23 @@ Nel server mi serve questo:
 
 Nel file `config/cors.php` aggiungo graphql all'array paths
 
-Nel client installo questi
+Mi creo un client Vue => sceglierò Vue 2 (vorrei provare Vite)
 
-    vue new vue-apollo-client => sceglierò Vue 2 stavolta (però vorrei provare Vite)
+    vue create vue-apollo-client
+    cd vue-apollo-client
     vue add apollo
+
+Se scelgo `Add example code Yes` mi mette il file vue-apollo.js che tanto dovevo creare
+
+Creo `.env` e ci metto dentro `VUE_APP_GRAPHQL_HTTP = http://localhost:3000`
+
+Ho provato a utilizzare Vite (mi installa a forza Vue 3, forse non serve la @latest) ma dà conflitto con apollo, mi sa
+
+    npm create vite@latest
+    npm create vite@latest progetto -- --template vue
+    cd progetto
+    npm install
+    npm run dev
+
+
+
