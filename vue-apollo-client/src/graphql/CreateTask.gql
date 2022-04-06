@@ -1,0 +1,6 @@
+mutation createTask ($user_id: Int! , $title: String!) {
+    createTask(user_id: $user_id , title: $title) {
+        id
+        title
+    }
+}

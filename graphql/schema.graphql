@@ -58,7 +58,8 @@ type Task {
 
 
 type Mutation {
-    createTask(input: TaskInput! @spread): Task @create
+    createTask(user_id: Int!, title: String!): Task @create
+    "createTask(input: TaskInput! @spread): Task @create"
     updateTask(id: ID!, title: String!): Task @update
     deleteTask(id: ID!): Task @delete
 }

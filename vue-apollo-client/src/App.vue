@@ -1,16 +1,16 @@
 <template>
   <div id="app">
-      <TaskList />
+      <Tasks />
   </div>
 </template>
 
 <script>
-import TaskList from "./components/TaskList";
+import Tasks from "./components/Tasks";
 
 export default {
   name: 'App',
   components: {
-      TaskList
+      Tasks
   }
 }
 </script>
