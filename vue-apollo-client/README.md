@@ -20,5 +20,7 @@ npm run build
 npm run lint
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### Branch del client
+Ho creato due branch
+- **main** (non c'è il paginatore - è indietro di 2 lezioni)
+- **pagination** (c'è il paginatore e un validatore del form Add Task)

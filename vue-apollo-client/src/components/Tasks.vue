@@ -12,12 +12,23 @@
                 <button @click="delete_task(task.id)">Delete</button>
             </li>
         </ul>
+
+        <div v-if="paginator">
+            <div>Page: {{ paginator.currentPage }} / {{ paginator.lastPage }}</div>
+            <div>Displaying {{ paginator.count }} entries out of {{ paginator.total }}</div>
+        </div>
+        <div>
+            <button @click="page--">&larr; Previous</button>
+            <button @click="page++">&rarr; Next</button>
+        </div>
+
         <button @click="open_form=true">Add a task</button>
 
         <div v-show="open_form">
             <input type="text" v-model="title" />
             <button @click="save_task">Save</button>
         </div>
+        <div v-show="errors" style="color:red">{{ errors }}</div>
     </div>
 </template>
 
@@ -35,12 +46,17 @@ export default {
             title_edit: '',
             open_form: false,
             open_edit_form: false,
-            id_edit: null
+            id_edit: null,
+            page:1,
+            perPage: 10,
+            paginator: null,
+            errors: ''
         };
     },
 
     methods: {
         save_task() {
+            this.errors = ''
             this.$apollo.mutate({
                 mutation: CREATE_TASK_MUTATION,
                 variables: {
@@ -51,6 +67,13 @@ export default {
                 this.title = '',
                 this.open_form = false
                 this.$apollo.queries.tasks.refetch()
+            }).catch((error) => {
+                // console.log(error.graphQLErrors)
+                error.graphQLErrors.forEach(({extensions}) => {
+                    if (extensions.category === 'validation') {
+                        this.errors = extensions.validation.title[0];
+                    }
+                })
             })
         },
 
@@ -89,7 +112,19 @@ export default {
     },
 
     apollo: {
-        tasks: TASKS_QUERY,
+        tasks: {
+            query: TASKS_QUERY,
+            variables() {
+                return {
+                    perPage: this.perPage,
+                    page: this.page
+                }
+            },
+            update: function(data) {
+                this.paginator = data.tasks.paginatorInfo
+                return data.tasks.data
+            }
+        },
     },
 };
 </script>
