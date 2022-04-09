@@ -173,4 +173,8 @@ Ho provato a utilizzare Vite (mi installa a forza Vue 3, forse non serve la @lat
     npm run dev
 
 
+# Multitenancy
+La multitenancy la gestisco tutta a livello di server
+- ci son tutte le direttive di Lighthouse
+- faccio praticamente tutto in schema.graphql
 

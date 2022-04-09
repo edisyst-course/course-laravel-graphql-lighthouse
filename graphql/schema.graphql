@@ -21,8 +21,10 @@ type Query {
       name: String @where(operator: "like")
     ): [User!]! @all
 
-    tasks: [Task!]! @paginate
+    tasks: [Task!]! @paginate @whereAuth(relation: "user")
     task (id: ID @eq): Task @find
+
+    me: User @auth
 }
 
 
@@ -58,10 +60,10 @@ type Task {
 
 
 type Mutation {
-    createTask(user_id: Int!, title: String! @rules(apply: ["string", "min:5"])): Task @create
+    createTask(user_id: Int!, title: String! @rules(apply: ["min:5", "max:255"])): Task @create @inject(context: "user.id", name: "user_id")
     "createTask(input: TaskInput! @spread): Task @create"
     updateTask(id: ID!, title: String!): Task @update
-    deleteTask(id: ID!): Task @delete
+    deleteTask(id: ID!): Task @delete @whereAuth(relation: "user")
 }
 
 input TaskInput {
