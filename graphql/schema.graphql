@@ -21,7 +21,7 @@ type Query {
       name: String @where(operator: "like")
     ): [User!]! @all
 
-    tasks: [Task!]! @all
+    tasks: [Task!]! @paginate
     task (id: ID @eq): Task @find
 }
 
@@ -58,7 +58,7 @@ type Task {
 
 
 type Mutation {
-    createTask(user_id: Int!, title: String!): Task @create
+    createTask(user_id: Int!, title: String! @rules(apply: ["string", "min:5"])): Task @create
     "createTask(input: TaskInput! @spread): Task @create"
     updateTask(id: ID!, title: String!): Task @update
     deleteTask(id: ID!): Task @delete
